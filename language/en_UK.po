@@ -1,0 +1,2 @@
+msgid "List of posts"
+msgstr "List of posts - English"

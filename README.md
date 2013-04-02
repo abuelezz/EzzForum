@@ -1,1 +1,4 @@
-Sample, skeleton module for use with the ZF2 MVC layer.
+Zend Framework 2 - Sample Module for learning - EzzForum
+=================================================
+Version: 0.1  
+Author:  Mohammad Abuelezz

@@ -30,4 +30,12 @@ class Post {
         $this->body = $body;
     }
 
+    public function getCreated() {
+        return $this->created;
+    }
+
+    public function setCreated($created) {
+        $this->created = $created;
+    }
+
 }

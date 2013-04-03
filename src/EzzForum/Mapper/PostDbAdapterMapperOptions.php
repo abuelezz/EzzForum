@@ -2,7 +2,9 @@
 
 namespace EzzForum\Mapper;
 
-class PostDbAdapterMapperOptions extends \Zend\Stdlib\AbstractOptions {
+use Zend\Stdlib\AbstractOptions;
+
+class PostDbAdapterMapperOptions extends AbstractOptions {
 
     protected $hydrator;
     protected $tableName;    

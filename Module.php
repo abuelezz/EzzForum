@@ -25,8 +25,19 @@ class Module implements AutoloaderProviderInterface {
         return include __DIR__ . '/config/module.config.php';
     }
 
-    /*
-     * I tried to use as the same that you did in contact form, but I cannot complete :( 
+    public function getControllerConfig() {
+        
+        return array(
+            'factories' => array(
+                'EzzForum\Controller\Post' => function($sm) {
+                    $cont = new Controller\PostController();                    
+                    $cont->setPostForm($sm->getServiceLocator()->get('EzzForum\Form\Post'));
+                    return $cont;
+                }
+            )
+        );
+    }
+
     public function getServiceConfig() {
         return array(
             'factories' => array(
@@ -42,6 +53,5 @@ class Module implements AutoloaderProviderInterface {
             )
         );
     }
-    */
 
 }

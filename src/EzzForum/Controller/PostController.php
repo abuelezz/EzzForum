@@ -7,10 +7,10 @@
 namespace EzzForum\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use EzzForum\Form\PostForm;
-use EzzForum\Form\PostInputFilter;
 
 class PostController extends AbstractActionController {
+
+    protected $postForm;
 
     /**
      * create post/message form action
@@ -19,14 +19,12 @@ class PostController extends AbstractActionController {
      */
     public function createAction() {
 
-        $form = new PostForm('post');
-
+        // get form
+        $form = $this->getPostForm();
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $form->setInputFilter(new PostInputFilter());
             $form->setData($request->getPost());
-
             if ($form->isValid()) {
                 return $this->redirect()->toRoute('list');
             }
@@ -42,6 +40,14 @@ class PostController extends AbstractActionController {
      */
     public function indexAction() {
         return array();
+    }
+
+    public function getPostForm() {
+        return $this->postForm;
+    }
+
+    public function setPostForm($postForm) {
+        $this->postForm = $postForm;
     }
 
 }

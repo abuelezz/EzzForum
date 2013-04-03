@@ -1,36 +1,8 @@
 <?php
 
 return array(
-    'controllers' => array(
-        'invokables' => array(
-            'EzzForum\Controller\Post' => 'EzzForum\Controller\PostController',
-        ),
-    ),
     'router' => array(
-        'routes' => array(
-            'create' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    // Change this to something specific to your module
-                    'route' => '/forum/post/create',
-                    'defaults' => array(
-                        'controller' => 'EzzForum\Controller\Post',
-                        'action' => 'create',
-                    )
-                ),
-            ),
-            'list' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    // Change this to something specific to your module
-                    'route' => '/forum/post/index',
-                    'defaults' => array(
-                        'controller' => 'EzzForum\Controller\Post',
-                        'action' => 'index',
-                    )
-                ),
-            ),
-        ),
+        'routes' => require 'routes.config.php'
     ),
     'view_manager' => array(
         'template_path_stack' => array(

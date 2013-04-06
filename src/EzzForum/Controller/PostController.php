@@ -33,10 +33,10 @@ class PostController extends AbstractActionController {
             if ($form->isValid()) {
                 $values = $form->getInputFilter()->getValues();
                 $entity = $service->createEntityFromArray($values);
-                
+
                 $persistEvent = $service->persist($values);
 
-     
+
                 //$last = $ret->last();
                 //if ($last instanceof Response || $last instanceof \Zend\View\Model\ModelInterface) {
                 //    return $last;
@@ -53,7 +53,14 @@ class PostController extends AbstractActionController {
      * @return view object
      */
     public function indexAction() {
-        return array();
+
+        $viewModel = new \Zend\View\Model\ViewModel();
+        $paginator = $this->getEntityService()->getPaginator();
+        $viewModel->setVariables(array(
+            'paginator' => $paginator,
+        ));
+
+        return $viewModel;
     }
 
     public function getPostForm() {

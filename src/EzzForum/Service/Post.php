@@ -24,7 +24,7 @@ class Post {
     }
 
     public function getPaginator() {
-        echo __FUNCTION__;
+        return new \Zend\Paginator\Paginator($this->getMapper()->getPaginatorAdapter());
     }
 
     public function persist($entity, $data = null) {

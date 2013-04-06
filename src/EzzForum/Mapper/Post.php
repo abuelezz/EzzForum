@@ -60,7 +60,30 @@ class Post {
      * @return \Zend\Paginator\Adapter\DbSelect
      */
     public function getPaginatorAdapter() {
+
+        $select = new Select();
+        $select->from($this->getTableName());
+
         return new \Zend\Paginator\Adapter\DbSelect($select, $this->getDbAdapter());
+    }
+
+    public function selectWith($select, $parametersOrQueryMode = null) {
+        $adapter = $this->getReadDbAdapter();
+
+        if ($select instanceof Select) {
+            $statement = $adapter->createStatement();
+            $select->prepareStatement($adapter, $statement);
+            $result = $statement->execute();
+        } else {
+            $result = $adapter->query($select, $parametersOrQueryMode);
+        }
+
+        $resultSet = new \Zend\Db\ResultSet\HydratingResultSet();
+        $resultSet->setHydrator($this->getHydrator());
+        $resultSet->setObjectPrototype($this->getEntityPrototype());
+        $resultSet->initialize($result);
+
+        return $resultSet;
     }
 
     protected function insert($entity) {

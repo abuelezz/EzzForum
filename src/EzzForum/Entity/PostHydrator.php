@@ -3,6 +3,9 @@
 /**
  * Hydrator
  */
+
+namespace EzzForum\Entity;
+
 use Zend\Stdlib\Hydrator\ClassMethods;
 
 class PostHydrator extends ClassMethods {

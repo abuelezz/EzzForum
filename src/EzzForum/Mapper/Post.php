@@ -2,10 +2,14 @@
 
 namespace EzzForum\Mapper;
 
+use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Sql;
+
 class Post {
 
     protected $dbAdapter;
     protected $options;
+    protected $isInitialized = false;
 
     /**
      * @see ServiceManager in Module.php
@@ -14,6 +18,23 @@ class Post {
      */
     public function __construct($dbAdapter, \EzzForum\Mapper\PostDbAdapterMapperOptions $options) {
         $this->setDbAdapter($dbAdapter);
+        $this->setOptions($options);
+    }
+
+    protected function initialize() {
+        if ($this->isInitialized) {
+            return;
+        }
+
+        if (!$this->dbAdapter instanceof Adapter) {
+            throw new \Exception('No db adapter');
+        }
+
+        if (!is_object($this->getOptions()->getEntityPrototype())) {
+            throw new \Exception('No entity prototype set');
+        }
+
+        $this->isInitialized = true;
     }
 
     public function setDbAdapter($adapter) {
@@ -30,7 +51,8 @@ class Post {
      * @param type $entity
      */
     public function persist($entity) {
-        $this->insert($entity);
+        $id = $this->insert($entity);
+        var_dump($id);
     }
 
     /**
@@ -52,7 +74,7 @@ class Post {
 
         $statement = $sql->prepareStatementForSqlObject($insert);
         $result = $statement->execute();
-        $lastInsertValue = $this->getWriteDbAdapter()->getDriver()->getConnection()->getLastGeneratedValue();
+        $lastInsertValue = $this->getDbAdapter()->getDriver()->getConnection()->getLastGeneratedValue();
 
         return $lastInsertValue;
     }

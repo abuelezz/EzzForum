@@ -26,12 +26,13 @@ class Module implements AutoloaderProviderInterface {
     }
 
     public function getControllerConfig() {
-        
+
         return array(
             'factories' => array(
                 'EzzForum\Controller\Post' => function($sm) {
-                    $cont = new Controller\PostController();                    
+                    $cont = new Controller\PostController();
                     $cont->setPostForm($sm->getServiceLocator()->get('EzzForum\Form\Post'));
+                    $cont->setEntityService($sm->getServiceLocator()->get('EzzForum\Service\Post'));
                     return $cont;
                 }
             )
@@ -40,6 +41,11 @@ class Module implements AutoloaderProviderInterface {
 
     public function getServiceConfig() {
         return array(
+            
+            'invokables' => array(
+                //entities
+                'EzzForum\Entity\Post' => 'EzzForum\Entity\Post',
+            ),            
             'factories' => array(
                 'EzzForum\Form\Post' => function ($sm) {
                     $form = new Form\PostForm('post');
@@ -50,6 +56,27 @@ class Module implements AutoloaderProviderInterface {
                     $filter = new Form\PostInputFilter();
                     return $filter;
                 },
+                'EzzForum\Mapper\Post' => function ($sm) {
+                    return new Mapper\Post(                            
+                            $sm->get('Zend\Db\Adapter\Adapter'), new Mapper\PostDbAdapterMapperOptions(array(
+                            'tableName' => 'post',
+                            'hydrator' => $sm->get('EzzForum\Entity\PostHydrator'),
+                            'entityPrototype' => $sm->get('EzzForum\Entity\Post'),   
+                            ))
+                    );
+                },
+                'EzzForum\Entity\PostHydrator' => function ($sm) {                    
+                    return new Entity\PostHydrator(false);
+                },
+                        
+                'EzzForum\Service\Post' => function ($sm) {
+                    $s = new Service\Post(
+                        $sm->get('EzzForum\Mapper\Post'),
+                        $sm->get('EzzForum\Entity\Post'),
+                        $sm->get('EzzForum\Entity\PostHydrator')
+                    );
+                    return $s;
+                }                        
             )
         );
     }

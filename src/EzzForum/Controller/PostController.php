@@ -11,6 +11,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 class PostController extends AbstractActionController {
 
     protected $postForm;
+    protected $entityService;
 
     /**
      * create post/message form action
@@ -19,14 +20,27 @@ class PostController extends AbstractActionController {
      */
     public function createAction() {
 
+
         // get form
         $form = $this->getPostForm();
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $form->setData($request->getPost());
+
+            $service = $this->getEntityService();
+            $data = $this->getRequest()->getPost()->toArray();
+            $form->setData($data);
             if ($form->isValid()) {
-                return $this->redirect()->toRoute('list');
+                $values = $form->getInputFilter()->getValues();
+                $entity = $service->createEntityFromArray($values);
+                
+                $persistEvent = $service->persist($values);
+
+     
+                //$last = $ret->last();
+                //if ($last instanceof Response || $last instanceof \Zend\View\Model\ModelInterface) {
+                //    return $last;
+                //}
             }
         }
 
@@ -48,6 +62,14 @@ class PostController extends AbstractActionController {
 
     public function setPostForm($postForm) {
         $this->postForm = $postForm;
+    }
+
+    public function getEntityService() {
+        return $this->entityService;
+    }
+
+    public function setEntityService($entityService) {
+        $this->entityService = $entityService;
     }
 
 }

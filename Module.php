@@ -57,13 +57,15 @@ class Module implements AutoloaderProviderInterface {
                     return $filter;
                 },
                 'EzzForum\Mapper\Post' => function ($sm) {
-                    return new Mapper\Post(                            
+                    $mapper = new Mapper\Post(                            
                             $sm->get('Zend\Db\Adapter\Adapter'), new Mapper\PostDbAdapterMapperOptions(array(
                             'tableName' => 'post',
-                            'hydrator' => $sm->get('EzzForum\Entity\PostHydrator'),
-                            'entityPrototype' => $sm->get('EzzForum\Entity\Post'),   
+                            'hydrator' => $sm->get('EzzForum\Entity\PostHydrator'),                            
                             ))
+                    
                     );
+                    $mapper->setEntityPrototype($sm->get('EzzForum\Entity\Post'));
+                    return $mapper;
                 },
                 'EzzForum\Entity\PostHydrator' => function ($sm) {                    
                     return new Entity\PostHydrator(false);

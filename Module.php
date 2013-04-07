@@ -60,13 +60,13 @@ class Module implements AutoloaderProviderInterface {
                     $mapper = new Mapper\Post(                            
                             $sm->get('Zend\Db\Adapter\Adapter'), new Mapper\PostDbAdapterMapperOptions(array(
                             'tableName' => 'post',
-                            'hydrator' => $sm->get('EzzForum\Entity\PostHydrator'),                            
-                            ))
-                    
+                            ))                    
                     );
                     $mapper->setEntityPrototype($sm->get('EzzForum\Entity\Post'));
+                    $mapper->setHydrator($sm->get('EzzForum\Entity\PostHydrator'));
                     return $mapper;
                 },
+                        
                 'EzzForum\Entity\PostHydrator' => function ($sm) {                    
                     return new Entity\PostHydrator(false);
                 },

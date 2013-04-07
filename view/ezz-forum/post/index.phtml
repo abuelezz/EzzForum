@@ -1,1 +1,20 @@
-<?php echo $this->translate('List of posts');?>
+<?php echo $this->translate('List of posts'); ?>
+
+<table>
+    <thead>
+        <tr>
+            <th><?php echo $this->translate("ID") ?></th>
+            <th><?php echo $this->translate("Thread Body") ?></th>
+            <th><?php echo $this->translate("Created Date") ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($paginator as $post): ?>
+            <tr>
+                <td><?php echo $post->id?></td>
+                <td><?php echo $post->body?></td>
+                <td><?php echo $post->created?></td>
+            </tr>        
+        <?php endforeach; ?>
+    </tbody>
+</table>

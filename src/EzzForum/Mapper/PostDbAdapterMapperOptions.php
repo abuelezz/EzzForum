@@ -8,7 +8,6 @@ class PostDbAdapterMapperOptions extends AbstractOptions {
 
     protected $hydrator;
     protected $tableName;
-    protected $entityPrototype;
 
     public function getHydrator() {
         return $this->hydrator;
@@ -25,13 +24,4 @@ class PostDbAdapterMapperOptions extends AbstractOptions {
     public function setTableName($tableName) {
         $this->tableName = $tableName;
     }
-
-    public function getEntityPrototype() {
-        return $this->entityPrototype;
-    }
-
-    public function setentityPrototype($entityPrototype) {
-        $this->entityPrototype = $entityPrototype;
-    }
-
 }

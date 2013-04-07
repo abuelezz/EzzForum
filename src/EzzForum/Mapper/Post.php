@@ -10,6 +10,7 @@ class Post {
     protected $dbAdapter;
     protected $options;
     protected $isInitialized = false;
+    protected $entityPrototype;
 
     /**
      * @see ServiceManager in Module.php
@@ -120,6 +121,14 @@ class Post {
 
     protected function setTableName($tableName) {
         $this->tableName = $tableName;
+    }
+
+    public function getEntityPrototype() {
+        return $this->entityPrototype;
+    }
+
+    public function setEntityPrototype($entityPrototype) {
+        $this->entityPrototype = $entityPrototype;
     }
 
 }

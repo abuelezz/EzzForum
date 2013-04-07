@@ -8,11 +8,11 @@ class PostDbAdapterMapperOptions extends AbstractOptions {
 
     protected $tableName;
 
-    public function getHydrator() {
-        return $this->hydrator;
+    public function getTableName() {
+        return $this->tableName;
     }
 
-    public function setHydrator($hydrator) {
-        $this->hydrator = $hydrator;
+    public function setTableName($tableName) {
+        $this->tableName = $tableName;
     }
 }

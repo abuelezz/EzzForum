@@ -11,6 +11,7 @@ class Post {
     protected $options;
     protected $isInitialized = false;
     protected $entityPrototype;
+    protected $hydrator;
 
     /**
      * @see ServiceManager in Module.php
@@ -111,10 +112,6 @@ class Post {
         return $this->options;
     }
 
-    protected function getHydrator() {
-        return $this->getOptions()->getHydrator();
-    }
-
     protected function getTableName() {
         return $this->getOptions()->getTableName();
     }
@@ -129,6 +126,14 @@ class Post {
 
     public function setEntityPrototype($entityPrototype) {
         $this->entityPrototype = $entityPrototype;
+    }
+
+    public function getHydrator() {
+        return $this->hydrator;
+    }
+
+    public function setHydrator($hydrator) {
+        $this->hydrator = $hydrator;
     }
 
 }

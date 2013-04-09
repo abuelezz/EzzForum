@@ -8,6 +8,7 @@
 
 namespace ezzForum\Service;
 
+use \Zend\Paginator\Paginator;
 //use EzzForum\Mapper\Post;
 
 class Post {
@@ -24,7 +25,13 @@ class Post {
     }
 
     public function getPaginator() {
-        return new \Zend\Paginator\Paginator($this->getMapper()->getPaginatorAdapter());
+        return new Paginator($this->getMapper()->getPaginatorAdapter());
+    }
+
+    public function getPaginatorAll() {
+        $paginator = $this->getPaginator();
+        $paginator->setItemCountPerPage($paginator->getTotalItemCount());
+        return $paginator;
     }
 
     public function persist($entity, $data = null) {

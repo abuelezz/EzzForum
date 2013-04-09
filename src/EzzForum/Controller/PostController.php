@@ -56,6 +56,9 @@ class PostController extends AbstractActionController {
 
         $viewModel = new \Zend\View\Model\ViewModel();
         $paginator = $this->getEntityService()->getPaginator();
+        //$paginator->setCurrentPageNumber($page);
+        $paginator->setItemCountPerPage(4);
+       
         $viewModel->setVariables(array(
             'paginator' => $paginator,
         ));

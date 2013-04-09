@@ -1,5 +1,4 @@
 <?php echo $this->translate('List of posts'); ?>
-
 <table>
     <thead>
         <tr>
@@ -9,11 +8,11 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($paginator as $post): ?>
+        <?php foreach ($paginator as $post):?>
             <tr>
-                <td><?php echo $post->id?></td>
-                <td><?php echo $post->body?></td>
-                <td><?php echo $post->created?></td>
+                <td><?php echo $post->getId()?></td>
+                <td><?php echo $post->getBody()?></td>
+                
             </tr>        
         <?php endforeach; ?>
     </tbody>

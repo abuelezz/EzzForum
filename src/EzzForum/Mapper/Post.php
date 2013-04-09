@@ -57,20 +57,31 @@ class Post {
         var_dump($id);
     }
 
-    /**
-     * @todo add select query
-     * @return \Zend\Paginator\Adapter\DbSelect
-     */
     public function getPaginatorAdapter() {
 
         $select = new Select();
         $select->from($this->getTableName());
 
-        return new \Zend\Paginator\Adapter\DbSelect($select, $this->getDbAdapter());
+        return $this->createPaginatorAdapter($select);
+
+        //$select = new Select();
+        //$select->from($this->getTableName());
+        //return new \Zend\Paginator\Adapter\DbSelect($select, $this->getDbAdapter());
+    }
+
+    protected function createPaginatorAdapter($select, $parametersOrQueryMode = null) {
+        $ret = $this->selectWith($select, $parametersOrQueryMode);
+        $arr = array();
+        foreach ($ret as $item) {
+            $arr[] = $item;
+        }
+        return new \Zend\Paginator\Adapter\ArrayAdapter($arr);
+        //END
+        //return new \Zend\Paginator\Adapter\DbSelect($ret);
     }
 
     public function selectWith($select, $parametersOrQueryMode = null) {
-        $adapter = $this->getReadDbAdapter();
+        $adapter = $this->getDbAdapter();
 
         if ($select instanceof Select) {
             $statement = $adapter->createStatement();

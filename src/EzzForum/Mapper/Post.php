@@ -127,10 +127,6 @@ class Post {
         return $this->getOptions()->getTableName();
     }
 
-    protected function setTableName($tableName) {
-        $this->tableName = $tableName;
-    }
-
     public function getEntityPrototype() {
         return $this->entityPrototype;
     }

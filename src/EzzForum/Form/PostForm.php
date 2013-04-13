@@ -7,9 +7,9 @@
 
 namespace EzzForum\Form;
 
-use Zend\Form\Form;
+use KapitchiBase\Form\EventManagerAwareForm;
 
-class PostForm extends Form {
+class PostForm extends EventManagerAwareForm {
 
     public function __construct($name = null) {
         parent::__construct($name);

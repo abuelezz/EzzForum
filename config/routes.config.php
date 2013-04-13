@@ -13,7 +13,7 @@ return array(
         ),
         'may_terminate' => true,
         'child_routes' => array(
-            'default' => array(
+            'post' => array(
                 'type' => 'Segment',
                 'options' => array(
                     'route' => '/[:controller/:action]',

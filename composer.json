@@ -1,0 +1,36 @@
+{
+    "name": "ezz/EzzForum",
+    "description": "ZF2 forum module",
+    "keywords": [        
+        "zf2",
+        "learning"
+    ],    
+    "authors": [
+        {
+            "name": "Mohammad Abuelezz",
+            "email": "aboel3zz@gmail.com",            
+            "role": "Developer"
+        }       
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/kapitchi/zf2.git"
+        }
+    ],            
+    "minimum-stability": "dev",    
+    "require": {
+        "php": ">=5.3.3",
+        "kapitchi/base": "dev-master",
+        "kapitchi/entity": "dev-master"
+    }
+    ,
+    "autoload": {
+        "psr-0": {
+            "EzzForum": "src/"
+        },
+        "classmap": [
+            "./Module.php"
+        ]
+    }    
+}

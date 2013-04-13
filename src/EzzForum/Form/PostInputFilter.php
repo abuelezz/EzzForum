@@ -8,16 +8,7 @@
 
 namespace EzzForum\Form;
 
-class PostInputFilter extends \Zend\InputFilter\InputFilter {
-
-    public function __construct() {
-
-        // body of the post is required
-        $this->add(array(
-            'name' => 'body',
-            'required' => true,
-        ));
-    }
+class PostInputFilter extends \EzzForum\Entity\PostInputFilter {    
 
 }
 

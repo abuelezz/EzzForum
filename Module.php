@@ -4,6 +4,7 @@ namespace EzzForum;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
+use KapitchiEntity\Mapper\EntityDbAdapterMapperOptions;
 
 class Module implements AutoloaderProviderInterface {
 
@@ -31,7 +32,7 @@ class Module implements AutoloaderProviderInterface {
             'factories' => array(
                 'EzzForum\Controller\Post' => function($sm) {
                     $cont = new Controller\PostController();
-                    $cont->setPostForm($sm->getServiceLocator()->get('EzzForum\Form\Post'));
+                    $cont->setEntityForm($sm->getServiceLocator()->get('EzzForum\Form\Post'));
                     $cont->setEntityService($sm->getServiceLocator()->get('EzzForum\Service\Post'));
                     return $cont;
                 }
@@ -55,15 +56,16 @@ class Module implements AutoloaderProviderInterface {
                 'EzzForum\Form\PostInputFilter' => function ($sm) {
                     $filter = new Form\PostInputFilter();
                     return $filter;
-                },
+                },                                        
                 'EzzForum\Mapper\Post' => function ($sm) {
-                    $mapper = new Mapper\Post(                            
-                            $sm->get('Zend\Db\Adapter\Adapter'), new Mapper\PostDbAdapterMapperOptions(array(
+                    $mapper = new Mapper\Post(                   
+                            $sm->get('Zend\Db\Adapter\Adapter'), new EntityDbAdapterMapperOptions(array(
                             'tableName' => 'post',
+                            'primaryKey' => 'id',
+                            'hydrator' => $sm->get('EzzForum\Entity\PostHydrator'),
+                            'entityPrototype' => $sm->get('EzzForum\Entity\Post'),
                             ))                    
                     );
-                    $mapper->setEntityPrototype($sm->get('EzzForum\Entity\Post'));
-                    $mapper->setHydrator($sm->get('EzzForum\Entity\PostHydrator'));
                     return $mapper;
                 },
                         

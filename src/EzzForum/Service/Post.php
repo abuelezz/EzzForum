@@ -6,7 +6,7 @@
  * @author Mohammad Abuelezz <mohammad@abuelezz.com>
  */
 
-namespace ezzForum\Service;
+namespace EzzForum\Service;
 
 use \Zend\Paginator\Paginator;
 //use EzzForum\Mapper\Post;

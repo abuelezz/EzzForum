@@ -2,4 +2,4 @@ msgid "List of posts"
 msgstr "List of posts - Arabic"
 
 msgid "Post Body"
-msgstr "Post Body - Arabic"
+msgstr "Post Body - Test"
